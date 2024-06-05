@@ -8,10 +8,6 @@ app = Flask(__name__)
 def index():
     return "Hello World"
 
-@app.route('/user/signup')
-def user_signup():
-    return "This is user sign-up page"
+# Import user_controller at the end to avoid circular import issues
+import controller.user_controller
 
-
-if __name__ == "__main__":
-    app.run(debug = True)
