@@ -9,5 +9,5 @@ def index():
     return "Hello World"
 
 # Import user_controller at the end to avoid circular import issues
-import controller.user_controller
+from controller import *
 
