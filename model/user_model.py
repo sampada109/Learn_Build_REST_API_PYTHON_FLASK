@@ -25,3 +25,15 @@ class UserModel():
             return json.dumps(result)
         else:
             return "No Data Exist"
+        
+    # adding new user 
+    def user_adduser_model(self, data):
+        try:
+            self.cursor.execute(f"""
+                INSERT INTO users(name, email)
+                VALUES('{data['name']}', '{data['email']}')
+            """)
+            self.conn.commit()
+            return "User Added Successfully!"
+        except Exception as e:
+            print(e)
