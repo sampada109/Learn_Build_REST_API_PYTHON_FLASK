@@ -71,3 +71,24 @@ class UserModel():
                 return make_response({"message":"Nothing to Delete!"}, 204)
         except Exception as e:
             print(e)
+
+
+    # patch - update only what is provided 
+    def user_patchuser_model(self, data, id):
+        try:
+            query = "UPDATE users SET "
+
+            for key,value in data.items():
+                query += f"{key}='{value}',"
+
+            query = query[:-1] + f" WHERE id={id}"
+
+            self.cursor.execute(query)
+            self.conn.commit()
+
+            if self.cursor.rowcount>0:
+                return make_response({'message':'User Updated Successfully!'}, 200)
+            else:
+                    return make_response({"message":"Nothing to Update!"}, 204)
+        except Exception as e:
+            print(e)
