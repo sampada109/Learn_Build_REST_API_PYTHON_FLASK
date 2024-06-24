@@ -1,6 +1,5 @@
 import pymysql
 from pymysql.cursors import DictCursor
-import json
 
 class UserModel():
     def __init__(self):
@@ -23,9 +22,9 @@ class UserModel():
         self.cursor.execute("SELECT * FROM users")
         result = self.cursor.fetchall()
         if len(result)>0:
-            return json.dumps(result)
+            return {'payload':result}
         else:
-            return "No Data Exist"
+            return {"message":"No Data Exist"}
         
 
     # adding new user 
@@ -36,7 +35,7 @@ class UserModel():
                 VALUES('{data['name']}', '{data['email']}')
             """)
             self.conn.commit()
-            return "User Added Successfully!"
+            return {"message":"User Added Successfully!"}
         except Exception as e:
             print(e)
 
@@ -50,9 +49,9 @@ class UserModel():
             """)
             self.conn.commit()
             if self.cursor.rowcount>0:
-                return "User Updated Successfully!"
+                return {"message":"User Updated Successfully!"}
             else:
-                return "Nothing to Update!"
+                return {"message":"Nothing to Update!"}
         except Exception as e:
             print(e)
 
@@ -66,8 +65,8 @@ class UserModel():
             """)
             self.conn.commit()
             if self.cursor.rowcount>0:
-                return "User DELETE Successfully!"
+                return {"message":"User DELETE Successfully!"}
             else:
-                return "Nothing to Delete!"
+                return {"message":"Nothing to Delete!"}
         except Exception as e:
             print(e)
