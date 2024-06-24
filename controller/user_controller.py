@@ -13,3 +13,9 @@ def user_getall():
 def user_adduser():
     data = request.form
     return obj.user_adduser_model(data)
+
+
+@app.route('/user/updateuser', methods=['PUT'])
+def user_updateuser():
+    data = request.form
+    return obj.user_updateuser_model(data)

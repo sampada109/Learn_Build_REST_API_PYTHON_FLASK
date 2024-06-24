@@ -37,3 +37,18 @@ class UserModel():
             return "User Added Successfully!"
         except Exception as e:
             print(e)
+
+    # updating existing user 
+    def user_updateuser_model(self, data):
+        try:
+            self.cursor.execute(f"""
+                UPDATE users SET name='{data['name']}', email='{data['email']}'
+                WHERE id = {data['id']}
+            """)
+            self.conn.commit()
+            if self.cursor.rowcount>0:
+                return "User Updated Successfully!"
+            else:
+                return "Nothing to Update!"
+        except Exception as e:
+            print(e)
