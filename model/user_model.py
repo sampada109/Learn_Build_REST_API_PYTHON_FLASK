@@ -1,5 +1,6 @@
 import pymysql
 from pymysql.cursors import DictCursor
+from flask import make_response
 
 class UserModel():
     def __init__(self):
@@ -22,9 +23,9 @@ class UserModel():
         self.cursor.execute("SELECT * FROM users")
         result = self.cursor.fetchall()
         if len(result)>0:
-            return {'payload':result}
+            return make_response({'payload':result}, 200)
         else:
-            return {"message":"No Data Exist"}
+            return make_response({"message":"No Data Exist"}, 204)
         
 
     # adding new user 
@@ -35,7 +36,7 @@ class UserModel():
                 VALUES('{data['name']}', '{data['email']}')
             """)
             self.conn.commit()
-            return {"message":"User Added Successfully!"}
+            return make_response({"message":"User Added Successfully!"}, 201)
         except Exception as e:
             print(e)
 
@@ -49,9 +50,9 @@ class UserModel():
             """)
             self.conn.commit()
             if self.cursor.rowcount>0:
-                return {"message":"User Updated Successfully!"}
+                return make_response({"message":"User Updated Successfully!"}, 200)
             else:
-                return {"message":"Nothing to Update!"}
+                return make_response({"message":"Nothing to Update!"}, 204)
         except Exception as e:
             print(e)
 
@@ -65,8 +66,8 @@ class UserModel():
             """)
             self.conn.commit()
             if self.cursor.rowcount>0:
-                return {"message":"User DELETE Successfully!"}
+                return make_response({"message":"User DELETE Successfully!"}, 200)
             else:
-                return {"message":"Nothing to Delete!"}
+                return make_response({"message":"Nothing to Delete!"}, 204)
         except Exception as e:
             print(e)
