@@ -17,6 +17,7 @@ class UserModel():
         except Exception as e:
             print(e)
 
+
     # get all users
     def user_getall_model(self):
         self.cursor.execute("SELECT * FROM users")
@@ -26,6 +27,7 @@ class UserModel():
         else:
             return "No Data Exist"
         
+
     # adding new user 
     def user_adduser_model(self, data):
         try:
@@ -37,6 +39,7 @@ class UserModel():
             return "User Added Successfully!"
         except Exception as e:
             print(e)
+
 
     # updating existing user 
     def user_updateuser_model(self, data):
@@ -50,5 +53,21 @@ class UserModel():
                 return "User Updated Successfully!"
             else:
                 return "Nothing to Update!"
+        except Exception as e:
+            print(e)
+
+
+    # deleting existing user 
+    def user_deleteuser_model(self, id):
+        try:
+            self.cursor.execute(f"""
+                DELETE FROM users
+                WHERE id = {id}
+            """)
+            self.conn.commit()
+            if self.cursor.rowcount>0:
+                return "User DELETE Successfully!"
+            else:
+                return "Nothing to Delete!"
         except Exception as e:
             print(e)

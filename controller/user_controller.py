@@ -19,3 +19,8 @@ def user_adduser():
 def user_updateuser():
     data = request.form
     return obj.user_updateuser_model(data)
+
+
+@app.route('/user/deleteuser/<id>', methods=['DELETE'])
+def user_deleteuser(id):
+    return obj.user_deleteuser_model(id)
