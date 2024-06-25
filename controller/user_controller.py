@@ -1,6 +1,6 @@
 from app import app
 from model.user_model import UserModel
-from flask import request, jsonify
+from flask import request, jsonify, send_file
 from datetime import datetime
 
 obj = UserModel()
@@ -47,3 +47,8 @@ def user_avatar(id):
     saving = f'uploads/{filepath}'
     file.save(saving)
     return obj.user_upload_avatar(id, saving)
+
+
+@app.route('/uploads/<filename>', methods=['GET'])
+def user_get_avatar(filename):
+    return send_file(f'uploads/{filename}')
