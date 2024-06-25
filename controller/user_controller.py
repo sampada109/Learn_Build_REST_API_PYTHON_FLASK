@@ -1,6 +1,7 @@
 from app import app
 from model.user_model import UserModel
 from flask import request, jsonify
+from datetime import datetime
 
 obj = UserModel()
 
@@ -35,3 +36,14 @@ def user_patchuser(id):
 @app.route('/user/getall/limit/<int:limit>/page/<int:page>', methods=['GET'])
 def user_pagination(limit,page):
     return obj.user_pagination_model(limit, page)
+
+
+@app.route('/user/upload/avatar/<id>', methods=['PUT'])
+def user_avatar(id):
+    file = request.files['avatar']   #requesting to access only the value of uploaded file
+    uniqueTime = str(datetime.now().timestamp()).replace(".","")     #generating a unique string of datetime
+    ext = file.filename.split(".")[-1]  #extracting filename and by spliting the filename wrt '.' and getting a list and only storing the last which is extension 
+    filepath = f'user{id}_{uniqueTime}.{ext}'
+    saving = f'uploads/{filepath}'
+    file.save(saving)
+    return obj.user_upload_avatar(id, saving)

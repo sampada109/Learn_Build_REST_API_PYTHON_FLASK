@@ -107,3 +107,18 @@ class UserModel():
                 return make_response({'message':'No Data Exist on this page'}, 204)
         except Exception as e:
             print(e)
+
+
+    # uploading file 
+    def user_upload_avatar(self, id, saving):
+        try:
+            query = f"UPDATE users SET avatar='{saving}' WHERE id={id}"
+            self.cursor.execute(query)
+            self.conn.commit()
+            if self.cursor.rowcount>0:
+                return make_response({"message":"File Uploaded Successfully!"}, 200)
+            else:
+                return make_response({"message":"Nothing to Upload!"}, 204)
+        except Exception as e:
+            print(e)
+        return saving
