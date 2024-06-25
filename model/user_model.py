@@ -92,3 +92,18 @@ class UserModel():
                     return make_response({"message":"Nothing to Update!"}, 204)
         except Exception as e:
             print(e)
+
+
+    # pagination 
+    def user_pagination_model(self, limit, page):
+        try:
+            start = (limit * page) - limit
+            query = f"""SELECT * FROM users LIMIT {start}, {limit}"""
+            self.cursor.execute(query)
+            result = self.cursor.fetchall()
+            if len(result) > 0:
+                return make_response({"payload":result, 'limit':limit, 'page':page},200)
+            else:
+                return make_response({'message':'No Data Exist on this page'}, 204)
+        except Exception as e:
+            print(e)

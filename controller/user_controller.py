@@ -30,3 +30,8 @@ def user_deleteuser(id):
 def user_patchuser(id):
     data = request.form
     return obj.user_patchuser_model(data, id)
+
+
+@app.route('/user/getall/limit/<int:limit>/page/<int:page>', methods=['GET'])
+def user_pagination(limit,page):
+    return obj.user_pagination_model(limit, page)
